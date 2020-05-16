@@ -12,15 +12,17 @@ jest.mock('crypto', () => ({
 }));
 
 describe('GET /favicon.ico', () => {
-  it('responds with 204 status code', (done) => {
-    request(app).get('/favicon.ico').expect(204, done);
+  it('responds with 204 status code', async () => {
+    const res = await request(app).get('/favicon.ico');
+    expect(res.status).toBe(204);
   });
 });
 
 describe('GET /', () => {
   it('returns 200 status code and html response', async () => {
     process.env.PUBLIC_PATH = path.resolve(__dirname, 'fixtures');
-    const res = await request(app).get('/').expect(200);
+    const res = await request(app).get('/');
+    expect(res.status).toBe(200);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
   });
 });
@@ -39,14 +41,12 @@ describe('POST /', () => {
   });
 
   it('returns a 302 redirect to Spotify auth endpoint', async () => {
-    const res = await request(app)
-      .post('/')
-      .send({
-        client_id: '1234',
-        client_secret: '5678'
-      })
-      .expect(302);
+    const res = await request(app).post('/').send({
+      client_id: '1234',
+      client_secret: '5678'
+    });
 
+    expect(res.status).toBe(302);
     expect(res.header.location).toMatch(
       /https:\/\/accounts.spotify.com\/authorize\?*/
     );
@@ -56,6 +56,9 @@ describe('POST /', () => {
 describe('GET /callback', () => {
   it('handles Spotify authorization, sets config properties and returns html response if successful', async () => {
     process.env.PUBLIC_PATH = path.resolve(__dirname, 'fixtures');
+    const originalDateNow = Date.now;
+    Date.now = jest.fn(() => 1589644712810);
+
     nock('https://accounts.spotify.com/api')
       .post(
         '/token',
@@ -67,13 +70,14 @@ describe('GET /callback', () => {
       )
       .reply(200, {
         access_token: '1234',
-        refresh_token: '5678',
-        expires_in: 1000
+        refresh_token: '5678'
       });
 
     const res = await request(app)
       .get('/callback?code=1234&state=1234')
       .expect(200);
+
+    expect(res.status).toBe(200);
 
     expect(config.get).toHaveBeenCalledTimes(1);
     expect(config.get).toHaveBeenCalledWith('credentials');
@@ -82,15 +86,16 @@ describe('GET /callback', () => {
     expect(config.set).toHaveBeenCalledWith('auth', {
       accessToken: '1234',
       refreshToken: '5678',
-      tokenRetrievedAt: 1000
+      tokenRetrievedAt: 1589644712
     });
 
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
+
+    Date.now = originalDateNow;
   });
 
   it('returns 500 status code and html response body if authorization fails', async () => {
     process.env.PUBLIC_PATH = path.resolve(__dirname, 'fixtures');
-    // mute console.log
     const originalConsoleLog = console.log;
     console.log = jest.fn();
 
@@ -105,10 +110,9 @@ describe('GET /callback', () => {
       )
       .reply(400);
 
-    const res = await request(app)
-      .get('/callback?code=1234&state=1234')
-      .expect(500);
+    const res = await request(app).get('/callback?code=1234&state=1234');
 
+    expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
     expect(console.log).toHaveBeenCalledWith(expect.any(String));
 
@@ -122,9 +126,9 @@ describe('GET /callback', () => {
 
     const res = await request(app)
       // We expect our state to be '1234'
-      .get('/callback?code=1234&state=5678')
-      .expect(500);
+      .get('/callback?code=1234&state=5678');
 
+    expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
     expect(console.log).toHaveBeenCalledWith(
       'Authorization states do not match!'
@@ -138,10 +142,9 @@ describe('GET /callback', () => {
     const originalConsoleLog = console.log;
     console.log = jest.fn();
 
-    const res = await request(app)
-      .get('/callback?error=Error&state=1234')
-      .expect(500);
+    const res = await request(app).get('/callback?error=Error&state=1234');
 
+    expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
     expect(console.log).toHaveBeenCalledWith('Error');
 

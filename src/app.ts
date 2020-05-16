@@ -76,12 +76,13 @@ app.get('/callback', async (req, res, next) => {
         redirectUri: process.env.REDIRECT_URI
       });
       const {
-        body: { access_token, refresh_token, expires_in }
+        body: { access_token, refresh_token }
       } = await spotify.authorizationCodeGrant(code as string);
       config.set('auth', {
+        // TODO: Clean up use of camel/snake case
         accessToken: access_token,
         refreshToken: refresh_token,
-        tokenRetrievedAt: expires_in
+        tokenRetrievedAt: Math.floor(Date.now() / 1000)
       });
     } catch (error) {
       next(error);
