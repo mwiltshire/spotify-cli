@@ -93,8 +93,8 @@ describe('GET /callback', () => {
 
   it('returns 500 status code and html response body if authorization fails', async () => {
     process.env.PUBLIC_PATH = path.resolve(__dirname, 'fixtures');
-    const originalConsoleLog = console.log;
-    console.log = jest.fn();
+    const originalConsoleError = console.error;
+    console.error = jest.fn();
 
     nock('https://accounts.spotify.com/api')
       .post(
@@ -111,15 +111,15 @@ describe('GET /callback', () => {
 
     expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
-    expect(console.log).toHaveBeenCalledWith(expect.any(String));
+    expect(console.error).toHaveBeenCalledWith(expect.any(String));
 
-    console.log = originalConsoleLog;
+    console.error = originalConsoleError;
   });
 
   it('returns 500 status code and html response body if state in auth response does not match request', async () => {
     process.env.PUBLIC_PATH = path.resolve(__dirname, 'fixtures');
-    const originalConsoleLog = console.log;
-    console.log = jest.fn();
+    const originalConsoleError = console.error;
+    console.error = jest.fn();
 
     const res = await request(app)
       // We expect our state to be '1234'
@@ -127,24 +127,24 @@ describe('GET /callback', () => {
 
     expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
-    expect(console.log).toHaveBeenCalledWith(
+    expect(console.error).toHaveBeenCalledWith(
       expect.stringMatching(/Authorization states do not match!/)
     );
 
-    console.log = originalConsoleLog;
+    console.error = originalConsoleError;
   });
 
   it('returns 500 status code and html response body if error query param is present', async () => {
     process.env.PUBLIC_PATH = path.resolve(__dirname, 'fixtures');
-    const originalConsoleLog = console.log;
-    console.log = jest.fn();
+    const originalConsoleError = console.error;
+    console.error = jest.fn();
 
     const res = await request(app).get('/callback?error=Error&state=1234');
 
     expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
-    expect(console.log).toHaveBeenCalledWith(expect.stringMatching(/Error/));
+    expect(console.error).toHaveBeenCalledWith(expect.stringMatching(/Error/));
 
-    console.log = originalConsoleLog;
+    console.error = originalConsoleError;
   });
 });
