@@ -73,11 +73,10 @@ describe('GET /callback', () => {
         refresh_token: '5678'
       });
 
-    const res = await request(app)
-      .get('/callback?code=1234&state=1234')
-      .expect(200);
+    const res = await request(app).get('/callback?code=1234&state=1234');
 
     expect(res.status).toBe(200);
+    expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
 
     expect(config.get).toHaveBeenCalledTimes(1);
     expect(config.get).toHaveBeenCalledWith('credentials');
@@ -88,8 +87,6 @@ describe('GET /callback', () => {
       refreshToken: '5678',
       tokenRetrievedAt: 1589644712
     });
-
-    expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
 
     Date.now = originalDateNow;
   });
@@ -131,7 +128,7 @@ describe('GET /callback', () => {
     expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
     expect(console.log).toHaveBeenCalledWith(
-      'Authorization states do not match!'
+      expect.stringMatching(/Authorization states do not match!/)
     );
 
     console.log = originalConsoleLog;
@@ -146,7 +143,7 @@ describe('GET /callback', () => {
 
     expect(res.status).toBe(500);
     expect(res.header['content-type']).toBe('text/html; charset=UTF-8');
-    expect(console.log).toHaveBeenCalledWith('Error');
+    expect(console.log).toHaveBeenCalledWith(expect.stringMatching(/Error/));
 
     console.log = originalConsoleLog;
   });
