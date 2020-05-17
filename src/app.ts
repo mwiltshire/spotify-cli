@@ -85,6 +85,7 @@ app.get('/callback', async (req, res, next) => {
         refreshToken: refresh_token,
         tokenRetrievedAt: Math.floor(Date.now() / 1000)
       });
+      process.send && process.send('sucess');
       res.sendFile('success.html', fileOptions, handleError);
     } catch (error) {
       next(error);
