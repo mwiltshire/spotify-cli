@@ -1,6 +1,7 @@
+import open from 'open';
 import { fork, ForkOptions } from 'child_process';
 import path from 'path';
-import open from 'open';
+import logger from './logger';
 
 const trim = (data: Buffer) => data.toString().trim();
 
@@ -8,9 +9,9 @@ export default async (port = '8080') => {
   process.env.REDIRECT_URI = `http://localhost:${port}/callback`;
   process.env.SCOPE =
     'user-read-currently-playing user-modify-playback-state user-read-playback-state';
-  process.env.PUBLIC_PATH = path.resolve(__dirname, './public');
+  process.env.PUBLIC_PATH = path.resolve(__dirname, '../public');
 
-  console.log(`Starting server...`);
+  logger.info('Starting server...');
 
   const server = path.resolve(__dirname, 'server');
   const opts: ForkOptions = {
@@ -21,24 +22,30 @@ export default async (port = '8080') => {
 
   child.on('message', async (message) => {
     if (message === 'server started') {
-      console.log(
+      logger.info(
         `Opening your default browser at http://localhost:${port}...`
       );
       await open(`http://localhost:${port}`, { wait: false });
-      console.log(
+      logger.info(
         'Opened browser. Waiting for you to complete Spotify authorization process...'
+      );
+    }
+
+    if (message === 'success') {
+      logger.success(
+        'Authorization successful! You can safely kill the server with CTRL + C.'
       );
     }
   });
 
-  child.on('error', (error) => console.log('Error: ' + error.message));
+  child.on('error', (error) => logger.error(error.message));
 
   child.stderr?.on('data', (data) => {
-    console.log(trim(data));
+    logger.error(trim(data));
     child.kill();
   });
 
-  child.stdout?.on('data', (data) => console.log(trim(data)));
+  child.stdout?.on('data', (data) => logger.info(trim(data)));
 
-  child.on('close', (code, signal) => console.log(code, signal));
+  child.on('close', () => logger.info('Killed server'));
 };
