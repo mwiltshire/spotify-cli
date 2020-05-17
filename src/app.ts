@@ -1,8 +1,9 @@
-import crypto from 'crypto';
 import express, { Response } from 'express';
-import bodyParser from 'body-parser';
-import config from './config';
 import SpotifyWebApi from 'spotify-web-api-node';
+import bodyParser from 'body-parser';
+import crypto from 'crypto';
+import config from './config';
+import logger from './logger';
 
 const authState = crypto.randomBytes(20).toString('hex');
 
@@ -84,10 +85,10 @@ app.get('/callback', async (req, res, next) => {
         refreshToken: refresh_token,
         tokenRetrievedAt: Math.floor(Date.now() / 1000)
       });
+      res.sendFile('success.html', fileOptions, handleError);
     } catch (error) {
       next(error);
     }
-    res.sendFile('success.html', fileOptions, handleError);
   }
 });
 
@@ -96,10 +97,10 @@ app.use((error: any, _: any, res: Response, __: any) => {
     root: process.env.PUBLIC_PATH,
     dotfiles: 'deny'
   };
-  console.log(error.message);
+  logger.error(error.message);
   res.status(500).sendFile('error.html', fileOptions, (error) => {
     if (error) {
-      console.log(error.message);
+      logger.error(error.message);
     }
   });
 });
