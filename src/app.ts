@@ -3,7 +3,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import bodyParser from 'body-parser';
 import crypto from 'crypto';
 import config from './config';
-import logger from './logger';
+import logger from './utils/logger';
 
 const authState = crypto.randomBytes(20).toString('hex');
 

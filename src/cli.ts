@@ -1,54 +1,49 @@
 import { program } from 'commander';
-import auth from './auth';
-import play from './play';
-import pause from './pause';
-import skip from './skip';
-import volume from './volume';
-import mute from './mute';
-import share from './share';
-import shuffle from './shuffle';
-import repeat from './repeat';
+import actions from './actions';
 
 (async () => {
   program
     .command('auth [port]')
     .description('Launch server to start app authentication.')
-    .action(auth);
+    .action(actions.auth);
 
-  program.command('play').description('Start or resume playback.').action(play);
+  program
+    .command('play')
+    .description('Start or resume playback.')
+    .action(actions.play);
 
-  program.command('pause').description('Pause playback.').action(pause);
+  program.command('pause').description('Pause playback.').action(actions.pause);
 
   program
     .command('skip [direction]')
     .description(
       'Skip track. Direction must be either `forward` or `back`. Defaults to skipping to next track.'
     )
-    .action(skip);
+    .action(actions.skip);
 
   program
     .command('volume <percent>')
     .description('Set playback volume.')
-    .action(volume);
+    .action(actions.volume);
 
-  program.command('mute').description('Mute playback').action(mute);
+  program.command('mute').description('Mute playback').action(actions.mute);
 
   program
     .command('share')
     .description(
       'Get a shareable link for the currently playing track. Copies link to clipboard.'
     )
-    .action(share);
+    .action(actions.share);
 
   program
     .command('shuffle <state>')
     .description('Toggle playback shuffle.')
-    .action(shuffle);
+    .action(actions.shuffle);
 
   program
     .command('repeat <mode>')
     .description('Set playback repeat mode.')
-    .action(repeat);
+    .action(actions.repeat);
 
   await program.parseAsync(process.argv);
 })();

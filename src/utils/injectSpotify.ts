@@ -1,4 +1,4 @@
-import config from './config';
+import config from '../config';
 import SpotifyWebApi from 'spotify-web-api-node';
 
 interface AuthCredentials {

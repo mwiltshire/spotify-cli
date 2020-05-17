@@ -1,5 +1,5 @@
 import injectSpotify, { Action } from '../injectSpotify';
-import config from '../config';
+import config from '../../config';
 
 const mockSetAccessToken = jest.fn();
 const mockSetRefreshToken = jest.fn();

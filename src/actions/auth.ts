@@ -1,7 +1,7 @@
 import open from 'open';
 import { fork, ForkOptions } from 'child_process';
 import path from 'path';
-import logger from './logger';
+import logger from '../utils/logger';
 
 const trim = (data: Buffer) => data.toString().trim();
 
