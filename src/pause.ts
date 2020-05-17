@@ -3,10 +3,10 @@ import injectSpotify from './injectSpotify';
 import logger from './logger';
 
 const action = async (spotify: SpotifyWebApi) => {
-  await spotify.play();
+  await spotify.pause();
 };
 
-const play = async () => {
+const pause = async () => {
   try {
     const handler = await injectSpotify(action);
     await handler();
@@ -15,4 +15,4 @@ const play = async () => {
   }
 };
 
-export default play;
+export default pause;
