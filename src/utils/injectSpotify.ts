@@ -1,5 +1,5 @@
-import config from '../config';
 import SpotifyWebApi from 'spotify-web-api-node';
+import config from '../config';
 
 interface AuthCredentials {
   accessToken: string;
@@ -18,7 +18,7 @@ const tokenIsValid = (timestamp: number) => {
 };
 
 const injectSpotify = async (fn: Action): Promise<Handler> => {
-  const auth: AuthCredentials = config.get('auth');
+  const auth: AuthCredentials = config.get('tokens');
   const timestamp = auth.tokenRetrievedAt;
   const spotify = new SpotifyWebApi();
 
@@ -32,7 +32,7 @@ const injectSpotify = async (fn: Action): Promise<Handler> => {
     body: { access_token }
   } = await spotify.refreshAccessToken();
 
-  config.set('auth.accessToken', access_token);
+  config.set('tokens.accessToken', access_token);
 
   spotify.setAccessToken(access_token);
   return (options: any[]) => fn(spotify, options);
