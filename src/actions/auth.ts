@@ -9,11 +9,11 @@ export default async (port = '8080') => {
   process.env.REDIRECT_URI = `http://localhost:${port}/callback`;
   process.env.SCOPE =
     'user-read-currently-playing user-modify-playback-state user-read-playback-state';
-  process.env.PUBLIC_PATH = path.resolve(__dirname, '../public');
+  process.env.PUBLIC_PATH = path.resolve(__dirname, '../../public');
 
   logger.info('Starting server...');
 
-  const server = path.resolve(__dirname, 'server');
+  const server = path.resolve(__dirname, '../server');
   const opts: ForkOptions = {
     silent: true,
     stdio: ['ipc']
