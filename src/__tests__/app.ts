@@ -5,7 +5,16 @@ import app from '../app';
 import config from '../config';
 import querystring from 'querystring';
 
-jest.mock('../config');
+jest.mock('../config', () => ({
+  set: jest.fn(),
+  get: jest.fn(() => ({
+    clientId: '1234',
+    clientSecret: '5678',
+    accessToken: '1234',
+    refreshToken: '1234',
+    tokenRetrievedAt: 1589644712
+  }))
+}));
 
 jest.mock('crypto', () => ({
   randomBytes: () => ({ toString: () => '1234' })
@@ -30,20 +39,20 @@ describe('GET /', () => {
 describe('POST /', () => {
   it('sets client ID and secret in config', async () => {
     await request(app).post('/').send({
-      client_id: '1234',
-      client_secret: '5678'
+      clientId: '1234',
+      clientSecret: '5678'
     });
     expect(config.set).toHaveBeenCalledTimes(1);
     expect(config.set).toHaveBeenCalledWith('credentials', {
-      client_id: '1234',
-      client_secret: '5678'
+      clientId: '1234',
+      clientSecret: '5678'
     });
   });
 
   it('returns a 302 redirect to Spotify auth endpoint', async () => {
     const res = await request(app).post('/').send({
-      client_id: '1234',
-      client_secret: '5678'
+      clientId: '1234',
+      clientSecret: '5678'
     });
 
     expect(res.status).toBe(302);
@@ -65,7 +74,9 @@ describe('GET /callback', () => {
         querystring.stringify({
           grant_type: 'authorization_code',
           redirect_uri: 'http://localhost:3000/callback',
-          code: '1234'
+          code: '1234',
+          client_id: '1234',
+          client_secret: '5678'
         })
       )
       .reply(200, {
@@ -82,7 +93,7 @@ describe('GET /callback', () => {
     expect(config.get).toHaveBeenCalledWith('credentials');
 
     expect(config.set).toHaveBeenCalledTimes(1);
-    expect(config.set).toHaveBeenCalledWith('auth', {
+    expect(config.set).toHaveBeenCalledWith('tokens', {
       accessToken: '1234',
       refreshToken: '5678',
       tokenRetrievedAt: 1589644712

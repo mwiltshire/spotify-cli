@@ -1,6 +1,17 @@
 import injectSpotify, { Action } from '../injectSpotify';
 import config from '../../config';
 
+jest.mock('../../config', () => ({
+  set: jest.fn(),
+  get: jest.fn(() => ({
+    clientId: '1234',
+    clientSecret: '5678',
+    accessToken: '1234',
+    refreshToken: '1234',
+    tokenRetrievedAt: 1589644712
+  }))
+}));
+
 const mockSetAccessToken = jest.fn();
 const mockSetRefreshToken = jest.fn();
 const mockRefreshAccessToken = jest.fn(() => ({
@@ -74,7 +85,7 @@ test('current auth data is retrieved from configuration when called', async () =
   await injectSpotify(mockAction);
 
   expect(config.get).toHaveBeenCalledTimes(1);
-  expect(config.get).toHaveBeenCalledWith('auth');
+  expect(config.get).toHaveBeenCalledWith('tokens');
 
   Date.now = originalDateNow;
 });
@@ -87,7 +98,7 @@ test('new token is written to config file if refreshed', async () => {
   await injectSpotify(mockAction);
 
   expect(config.set).toHaveBeenCalledTimes(1);
-  expect(config.set).toHaveBeenCalledWith('auth.accessToken', '1234');
+  expect(config.set).toHaveBeenCalledWith('tokens.accessToken', '1234');
 
   Date.now = originalDateNow;
 });
