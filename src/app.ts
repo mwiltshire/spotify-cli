@@ -32,15 +32,16 @@ app.get('/', (_, res, next) => {
 });
 
 app.post('/', (req, res, next) => {
-  const { client_id, client_secret } = req.body;
+  const { clientId, clientSecret } = req.body;
+
   try {
     config.set('credentials', {
-      client_id,
-      client_secret
+      clientId,
+      clientSecret
     });
     const spotify = new SpotifyWebApi({
       redirectUri: process.env.REDIRECT_URI,
-      clientId: client_id
+      clientId
     });
 
     const authURL = spotify.createAuthorizeURL(
@@ -79,13 +80,12 @@ app.get('/callback', async (req, res, next) => {
       const {
         body: { access_token, refresh_token }
       } = await spotify.authorizationCodeGrant(code as string);
-      config.set('auth', {
-        // TODO: Clean up use of camel/snake case
+      config.set('tokens', {
         accessToken: access_token,
         refreshToken: refresh_token,
         tokenRetrievedAt: Math.floor(Date.now() / 1000)
       });
-      process.send && process.send('sucess');
+      process.send && process.send('success');
       res.sendFile('success.html', fileOptions, handleError);
     } catch (error) {
       next(error);
