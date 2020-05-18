@@ -1,6 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from './injectSpotify';
-import logger from './logger';
+import injectSpotify from '../utils/injectSpotify';
+import logger from '../utils/logger';
 
 // TODO: Support targeting specific device_id
 

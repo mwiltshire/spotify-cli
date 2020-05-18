@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import clipboard from 'clipboardy';
-import injectSpotify from './injectSpotify';
-import logger from './logger';
+import injectSpotify from '../utils/injectSpotify';
+import logger from '../utils/logger';
 
 const action = async (spotify: SpotifyWebApi) => {
   const {

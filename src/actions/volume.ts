@@ -1,6 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from './injectSpotify';
-import logger from './logger';
+import injectSpotify from '../utils/injectSpotify';
+import logger from '../utils/logger';
 
 const matchNumberBetween0And100 = (number: string) =>
   /^\d+$/.test(number) && Number(number) >= 0 && Number(number) <= 100;
