@@ -12,6 +12,8 @@ jest.mock('../../config', () => ({
   }))
 }));
 
+const mockSetClientId = jest.fn();
+const mockSetClientSecret = jest.fn();
 const mockSetAccessToken = jest.fn();
 const mockSetRefreshToken = jest.fn();
 const mockRefreshAccessToken = jest.fn(() => ({
@@ -23,7 +25,9 @@ jest.mock('spotify-web-api-node', () =>
     return {
       setAccessToken: mockSetAccessToken,
       setRefreshToken: mockSetRefreshToken,
-      refreshAccessToken: mockRefreshAccessToken
+      refreshAccessToken: mockRefreshAccessToken,
+      setClientId: mockSetClientId,
+      mockSetClientSecret: mockSetClientSecret
     };
   })
 );
@@ -70,6 +74,8 @@ test('new token is requested if token is invalid', async () => {
 
   await injectSpotify(mockAction);
 
+  expect(mockSetClientId).toHaveBeenCalledTimes(1);
+  expect(mockSetClientSecret).toHaveBeenCalledTimes(1);
   expect(mockSetRefreshToken).toHaveBeenCalledTimes(1);
   expect(mockRefreshAccessToken).toHaveBeenCalledTimes(1);
   expect(mockSetAccessToken).toHaveBeenCalledTimes(1);

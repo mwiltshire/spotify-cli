@@ -45,5 +45,16 @@ import actions from './actions';
     .description('Set playback repeat mode.')
     .action(actions.repeat);
 
+  program
+    .command('search <query>')
+    .description(
+      'Perform search for a given query. Only the top 20 results max will be shown for each query type.'
+    )
+    .option('-a, --artist', 'Include artists in search results')
+    .option('-A, --album', 'Include albums in search results')
+    .option('-t, --track', 'Include tracks in search results')
+    .option('-p, --playlist', 'Include playlists in search results')
+    .action(actions.search);
+
   await program.parseAsync(process.argv);
 })();
