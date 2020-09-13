@@ -1,5 +1,6 @@
 import auth from './auth';
 import play from './play';
+import playArtist from './play-artist';
 import pause from './pause';
 import skip from './skip';
 import volume from './volume';
@@ -11,6 +12,7 @@ import repeat from './repeat';
 export default {
   auth,
   play,
+  playArtist,
   pause,
   skip,
   volume,

@@ -7,10 +7,12 @@ import actions from './actions';
     .description('Launch server to start app authentication.')
     .action(actions.auth);
 
-  program
+  const playCommand = program
     .command('play')
     .description('Start or resume playback.')
     .action(actions.play);
+
+  playCommand.command('artist').option('-v').action(actions.playArtist);
 
   program.command('pause').description('Pause playback.').action(actions.pause);
 
