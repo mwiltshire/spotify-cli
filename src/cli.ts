@@ -14,6 +14,7 @@ import actions from './actions';
 
   playCommand.command('artist').action(actions.playArtist);
   playCommand.command('track').action(actions.playTrack);
+  playCommand.command('album').action(actions.playAlbum);
 
   program.command('pause').description('Pause playback.').action(actions.pause);
 
