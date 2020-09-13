@@ -1,10 +1,15 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import config from '../config';
 
-interface AuthCredentials {
+interface AuthTokens {
   accessToken: string;
   refreshToken: string;
   tokenRetrievedAt: number;
+}
+
+interface AuthCredentials {
+  clientId: string;
+  clientSecret: string;
 }
 
 export type Handler = (options?: any[]) => Promise<any>;
@@ -18,16 +23,19 @@ const tokenIsValid = (timestamp: number) => {
 };
 
 const injectSpotify = async (fn: Action): Promise<Handler> => {
-  const auth: AuthCredentials = config.get('tokens');
-  const timestamp = auth.tokenRetrievedAt;
+  const tokens: AuthTokens = config.get('tokens');
+  const timestamp = tokens.tokenRetrievedAt;
   const spotify = new SpotifyWebApi();
 
   if (tokenIsValid(timestamp)) {
-    spotify.setAccessToken(auth.accessToken);
+    spotify.setAccessToken(tokens.accessToken);
     return (options: any[]) => fn(spotify, options);
   }
 
-  spotify.setRefreshToken(auth.refreshToken);
+  const credentials: AuthCredentials = config.get('credentials');
+  spotify.setClientId(credentials.clientId);
+  spotify.setClientSecret(credentials.clientSecret);
+  spotify.setRefreshToken(tokens.refreshToken);
   const {
     body: { access_token }
   } = await spotify.refreshAccessToken();
