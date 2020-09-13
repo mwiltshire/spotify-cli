@@ -1,10 +1,9 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from '../utils/injectSpotify';
-import logger from '../utils/logger';
+import createAction from '../create-action';
 
 // TODO: Support targeting specific device_id
 
-const action = async (spotify: SpotifyWebApi, options: any[]) => {
+const shuffle = async (spotify: SpotifyWebApi, options: any[]) => {
   const [state] = options;
 
   if (state !== 'on' || state !== 'off') {
@@ -22,13 +21,4 @@ spotify shuffle off
   await spotify.setShuffle({ state: state === 'on' });
 };
 
-const shuffle = async (...options: any[]) => {
-  try {
-    const handler = await injectSpotify(action);
-    await handler(options);
-  } catch (error) {
-    logger.error(error?.message);
-  }
-};
-
-export default shuffle;
+export default createAction(shuffle);

@@ -1,11 +1,11 @@
 import Spotify from 'spotify-web-api-node';
-import playArtist from '../play-artist';
-import { mockSearchArtists, mockPlay } from '../../test-mocks.ts';
+import playTrack from '../play-track';
+import { mockSearchTracks, mockPlay } from '../../test-mocks.ts';
 
 jest.mock('spotify-web-api-node', () => {
   return jest.fn().mockImplementation(() => {
     return {
-      searchArtists: mockSearchArtists,
+      searchTracks: mockSearchTracks,
       play: mockPlay
     };
   });
@@ -16,10 +16,10 @@ jest.mock('../../utils/inject-spotify', () => (action: any) =>
 );
 
 test('action searches spotify for query and play with context URI', async () => {
-  await playArtist({}, ['mogwai']);
+  await playTrack({}, ['kids will be skeletons']);
 
-  expect(mockSearchArtists).toHaveBeenCalledWith('mogwai');
+  expect(mockSearchTracks).toHaveBeenCalledWith('kids will be skeletons');
   expect(mockPlay).toHaveBeenCalledWith({
-    context_uri: 'spotify:artist:34UhPkLbtFKRq3nmfFgejG'
+    uris: ['spotify:track:3xogCrlDsnIZ7nQo8VvRL6']
   });
 });

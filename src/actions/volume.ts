@@ -1,11 +1,10 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from '../utils/injectSpotify';
-import logger from '../utils/logger';
+import createAction from '../create-action';
 
 const matchNumberBetween0And100 = (number: string) =>
   /^\d+$/.test(number) && Number(number) >= 0 && Number(number) <= 100;
 
-const action = async (spotify: SpotifyWebApi, options: any[]) => {
+const volume = async (spotify: SpotifyWebApi, options: any[]) => {
   const [percent] = options;
   if (!percent) {
     throw new Error('Volume percent is required!');
@@ -25,13 +24,4 @@ spotify volume 99
   await spotify.setVolume(Number(percent));
 };
 
-const volume = async (...options: any[]) => {
-  try {
-    const handler = await injectSpotify(action);
-    await handler(options);
-  } catch (error) {
-    logger.error(error?.message);
-  }
-};
-
-export default volume;
+export default createAction(volume);

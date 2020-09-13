@@ -1,18 +1,8 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from '../utils/injectSpotify';
-import logger from '../utils/logger';
+import createAction from '../create-action';
 
-const action = async (spotify: SpotifyWebApi) => {
+const pause = async (spotify: SpotifyWebApi) => {
   await spotify.pause();
 };
 
-const pause = async () => {
-  try {
-    const handler = await injectSpotify(action);
-    await handler();
-  } catch (error) {
-    logger.error(error?.message);
-  }
-};
-
-export default pause;
+export default createAction(pause);

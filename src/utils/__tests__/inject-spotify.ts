@@ -1,4 +1,4 @@
-import injectSpotify, { Action } from '../injectSpotify';
+import injectSpotify, { Action } from '../inject-spotify';
 import config from '../../config';
 
 jest.mock('../../config', () => ({

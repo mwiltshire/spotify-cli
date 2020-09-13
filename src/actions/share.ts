@@ -1,9 +1,9 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import clipboard from 'clipboardy';
-import injectSpotify from '../utils/injectSpotify';
 import logger from '../utils/logger';
+import createAction from '../create-action';
 
-const action = async (spotify: SpotifyWebApi) => {
+const share = async (spotify: SpotifyWebApi) => {
   const {
     body: { item }
   } = await spotify.getMyCurrentPlayingTrack();
@@ -19,13 +19,4 @@ const action = async (spotify: SpotifyWebApi) => {
   );
 };
 
-const share = async () => {
-  try {
-    const handler = await injectSpotify(action);
-    await handler();
-  } catch (error) {
-    logger.error(error?.message);
-  }
-};
-
-export default share;
+export default createAction(share);

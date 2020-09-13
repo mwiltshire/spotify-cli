@@ -1,6 +1,7 @@
 import auth from './auth';
 import play from './play';
 import playArtist from './play-artist';
+import playTrack from './play-track';
 import pause from './pause';
 import skip from './skip';
 import volume from './volume';
@@ -19,5 +20,6 @@ export default {
   mute,
   share,
   shuffle,
-  repeat
+  repeat,
+  playTrack
 };

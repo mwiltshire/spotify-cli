@@ -1,8 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from '../utils/injectSpotify';
-import logger from '../utils/logger';
+import createAction from '../create-action';
 
-const action = async (spotify: SpotifyWebApi, options: any[]) => {
+const skip = async (spotify: SpotifyWebApi, options: any[]) => {
   const [direction] = options;
   if (!direction || direction === 'forward') {
     await spotify.skipToNext();
@@ -24,13 +23,4 @@ spotify skip
   }
 };
 
-const skip = async (...options) => {
-  try {
-    const handler = await injectSpotify(action);
-    await handler(options);
-  } catch (error) {
-    logger.error(error?.message);
-  }
-};
-
-export default skip;
+export default createAction(skip);

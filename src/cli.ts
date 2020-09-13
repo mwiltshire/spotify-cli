@@ -12,7 +12,8 @@ import actions from './actions';
     .description('Start or resume playback.')
     .action(actions.play);
 
-  playCommand.command('artist').option('-v').action(actions.playArtist);
+  playCommand.command('artist').action(actions.playArtist);
+  playCommand.command('track').action(actions.playTrack);
 
   program.command('pause').description('Pause playback.').action(actions.pause);
 

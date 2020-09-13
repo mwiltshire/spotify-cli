@@ -1,10 +1,9 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from '../utils/injectSpotify';
-import logger from '../utils/logger';
+import createAction from '../create-action';
 
 // TODO: Support targeting specific device_id, default repeat mode of track??
 
-const action = async (spotify: SpotifyWebApi, options: any[]) => {
+const repeat = async (spotify: SpotifyWebApi, options: any[]) => {
   const [mode] = options;
 
   if (!['track', 'context', 'off'].includes(mode)) {
@@ -23,13 +22,4 @@ spotify repeat off
   await spotify.setShuffle({ state: mode });
 };
 
-const repeat = async (...options: any[]) => {
-  try {
-    const handler = await injectSpotify(action);
-    await handler(options);
-  } catch (error) {
-    logger.error(error?.message);
-  }
-};
-
-export default repeat;
+export default createAction(repeat);

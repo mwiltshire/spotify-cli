@@ -1,8 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import injectSpotify from '../utils/injectSpotify';
-import logger from '../utils/logger';
+import createAction from '../create-action';
 
-const action = async (spotify: SpotifyWebApi, args: [any, string[]]) => {
+const playArtist = async (spotify: SpotifyWebApi, args: [any, string[]]) => {
   const [, [query]] = args;
   const res = await spotify.searchArtists(query);
   await spotify.play({
@@ -10,13 +9,4 @@ const action = async (spotify: SpotifyWebApi, args: [any, string[]]) => {
   });
 };
 
-const playArtist = async (...args: any[]) => {
-  try {
-    const handler = await injectSpotify(action);
-    await handler(args);
-  } catch (error) {
-    logger.error(error?.message);
-  }
-};
-
-export default playArtist;
+export default createAction(playArtist);
