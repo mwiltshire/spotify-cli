@@ -10,7 +10,7 @@ const action = async (spotify: SpotifyWebApi, args: [any, string[]]) => {
   });
 };
 
-const playArtist = async (...args: string[]) => {
+const playArtist = async (...args: any[]) => {
   try {
     const handler = await injectSpotify(action);
     await handler(args);
