@@ -52,6 +52,7 @@ import actions from './actions';
   const devicesProgram = program.command('devices');
 
   devicesProgram.command('list').action(actions.listDevices);
+  devicesProgram.command('transfer').action(actions.transferDevice);
 
   await program.parseAsync(process.argv);
 })();

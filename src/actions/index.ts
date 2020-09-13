@@ -11,6 +11,7 @@ import share from './share';
 import shuffle from './shuffle';
 import repeat from './repeat';
 import listDevices from './list-devices';
+import transferDevice from './transfer-device';
 
 export default {
   auth,
@@ -25,5 +26,6 @@ export default {
   share,
   shuffle,
   repeat,
-  listDevices
+  listDevices,
+  transferDevice
 };
