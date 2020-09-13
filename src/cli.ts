@@ -49,5 +49,9 @@ import actions from './actions';
     .description('Set playback repeat mode.')
     .action(actions.repeat);
 
+  const devicesProgram = program.command('devices');
+
+  devicesProgram.command('list').action(actions.listDevices);
+
   await program.parseAsync(process.argv);
 })();

@@ -10,6 +10,7 @@ import mute from './mute';
 import share from './share';
 import shuffle from './shuffle';
 import repeat from './repeat';
+import listDevices from './list-devices';
 
 export default {
   auth,
@@ -23,5 +24,6 @@ export default {
   mute,
   share,
   shuffle,
-  repeat
+  repeat,
+  listDevices
 };
