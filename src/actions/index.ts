@@ -1,3 +1,5 @@
+import configPath from './config-path';
+import configClearTokens from './config-clear-tokens';
 import auth from './auth';
 import play from './play';
 import playArtist from './play-artist';
@@ -10,10 +12,14 @@ import mute from './mute';
 import share from './share';
 import shuffle from './shuffle';
 import repeat from './repeat';
-import listDevices from './list-devices';
-import transferDevice from './transfer-device';
+import devicesList from './devices-list';
+import devicesTransfer from './devices-transfer';
+import playlistCreate from './playlist-create';
+import playlistAdd from './playlist-add';
 
 export default {
+  configPath,
+  configClearTokens,
   auth,
   play,
   playArtist,
@@ -26,6 +32,8 @@ export default {
   share,
   shuffle,
   repeat,
-  listDevices,
-  transferDevice
+  devicesList,
+  devicesTransfer,
+  playlistCreate,
+  playlistAdd
 };

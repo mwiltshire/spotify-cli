@@ -7,8 +7,15 @@ const trim = (data: Buffer) => data.toString().trim();
 
 export default async (port = '8080') => {
   process.env.REDIRECT_URI = `http://localhost:${port}/callback`;
-  process.env.SCOPE =
-    'user-read-currently-playing user-modify-playback-state user-read-playback-state';
+  process.env.SCOPE = [
+    'user-read-currently-playing',
+    'user-modify-playback-state',
+    'user-read-playback-state',
+    'playlist-read-collaborative',
+    'playlist-modify-public',
+    'playlist-read-private',
+    'playlist-modify-private'
+  ].join(' ');
   process.env.PUBLIC_PATH = path.resolve(__dirname, '../../public');
 
   logger.info('Starting server...');

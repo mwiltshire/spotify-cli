@@ -12,5 +12,9 @@ export default {
   },
   set(key: string, value: any) {
     config.set(key, value);
-  }
+  },
+  delete(key: string) {
+    config.delete(key);
+  },
+  path: config.path
 };

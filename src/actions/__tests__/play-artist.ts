@@ -16,7 +16,7 @@ jest.mock('../../utils/inject-spotify', () => (action: any) =>
 );
 
 test('action searches spotify for query and calls play with context URI', async () => {
-  await playArtist({}, ['mogwai']);
+  await playArtist('mogwai');
 
   expect(mockSearchArtists).toHaveBeenCalledWith('mogwai');
   expect(mockPlay).toHaveBeenCalledWith({

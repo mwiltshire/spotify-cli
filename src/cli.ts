@@ -2,6 +2,10 @@ import { program } from 'commander';
 import actions from './actions';
 
 (async () => {
+  const configProgram = program.command('config');
+  configProgram.command('path').action(actions.configPath);
+  configProgram.command('clear-tokens').action(actions.configClearTokens);
+
   program
     .command('auth [port]')
     .description('Launch server to start app authentication.')
@@ -12,9 +16,9 @@ import actions from './actions';
     .description('Start or resume playback.')
     .action(actions.play);
 
-  playCommand.command('artist').action(actions.playArtist);
-  playCommand.command('track').action(actions.playTrack);
-  playCommand.command('album').action(actions.playAlbum);
+  playCommand.command('artist <name>').action(actions.playArtist);
+  playCommand.command('track <name>').action(actions.playTrack);
+  playCommand.command('album <name>').action(actions.playAlbum);
 
   program.command('pause').description('Pause playback.').action(actions.pause);
 
@@ -51,8 +55,21 @@ import actions from './actions';
 
   const devicesProgram = program.command('devices');
 
-  devicesProgram.command('list').action(actions.listDevices);
-  devicesProgram.command('transfer').action(actions.transferDevice);
+  devicesProgram.command('list').action(actions.devicesList);
+  devicesProgram.command('transfer').action(actions.devicesTransfer);
+
+  const playlistProgramn = program.command('playlist');
+  playlistProgramn
+    .command('create [name]')
+    .option('-p, --private')
+    .option('-c, --collaborative')
+    .option('-d, --description [description]')
+    .action(actions.playlistCreate);
+
+  playlistProgramn
+    .command('add <name> [uri]')
+    .option('-p, --position [index]')
+    .action(actions.playlistAdd);
 
   await program.parseAsync(process.argv);
 })();
