@@ -6,7 +6,13 @@ const playCommand = new Command('play')
   .action(play);
 
 playCommand.command('artist <name>').action(playArtist);
-playCommand.command('track <name>').action(playTrack);
+
+playCommand
+  .command('track <name>')
+  .option('-a, --artist <name>')
+  .option('-A, --album <name>')
+  .action(playTrack);
+
 playCommand.command('album <name>').action(playAlbum);
 
 export default playCommand;
