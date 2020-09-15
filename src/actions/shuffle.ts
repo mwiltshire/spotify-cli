@@ -3,7 +3,7 @@ import createAction from '../create-action';
 
 // TODO: Support targeting specific device_id
 
-const shuffle = async (spotify: SpotifyWebApi, options: any[]) => {
+const handler = async (spotify: SpotifyWebApi, options: any[]) => {
   const [state] = options;
 
   if (state !== 'on' || state !== 'off') {
@@ -21,4 +21,4 @@ spotify shuffle off
   await spotify.setShuffle({ state: state === 'on' });
 };
 
-export default createAction(shuffle);
+export const shuffle = createAction(handler);

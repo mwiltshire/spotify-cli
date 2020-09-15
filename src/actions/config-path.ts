@@ -2,8 +2,8 @@ import config from '../config';
 import logger from '../utils/logger';
 import createAction from '../create-action';
 
-const configPath = async () => {
+const handler = async () => {
   logger.info(`Config file path: ${config.path}`);
 };
 
-export default createAction(configPath);
+export const configPath = createAction(handler);

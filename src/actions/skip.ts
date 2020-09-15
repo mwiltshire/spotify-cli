@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import createAction from '../create-action';
 
-const skip = async (spotify: SpotifyWebApi, options: any[]) => {
+const handler = async (spotify: SpotifyWebApi, options: any[]) => {
   const [direction] = options;
   if (!direction || direction === 'forward') {
     await spotify.skipToNext();
@@ -23,4 +23,4 @@ spotify skip
   }
 };
 
-export default createAction(skip);
+export const skip = createAction(handler);

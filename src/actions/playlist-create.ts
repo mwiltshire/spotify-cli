@@ -2,7 +2,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import createAction from '../create-action';
 import logger from '../utils/logger';
 
-const playlistCreate = async (spotify: SpotifyWebApi, args: [string, any]) => {
+const handler = async (spotify: SpotifyWebApi, args: [string, any]) => {
   const [name, cmd] = args;
 
   const res = await spotify.getMe();
@@ -21,4 +21,4 @@ const playlistCreate = async (spotify: SpotifyWebApi, args: [string, any]) => {
   logger.success(`Created playlist ${name}!`);
 };
 
-export default createAction(playlistCreate);
+export const playlistCreate = createAction(handler);

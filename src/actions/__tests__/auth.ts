@@ -1,5 +1,5 @@
 import { fork } from 'child_process';
-import auth from '../auth';
+import { auth } from '../auth';
 
 const mockChildOn = jest.fn();
 const mockStdoutOn = jest.fn();

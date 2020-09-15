@@ -3,7 +3,7 @@ import createAction from '../create-action';
 
 // TODO: Support targeting specific device_id, default repeat mode of track??
 
-const repeat = async (spotify: SpotifyWebApi, options: any[]) => {
+const handler = async (spotify: SpotifyWebApi, options: any[]) => {
   const [mode] = options;
 
   if (!['track', 'context', 'off'].includes(mode)) {
@@ -22,4 +22,4 @@ spotify repeat off
   await spotify.setShuffle({ state: mode });
 };
 
-export default createAction(repeat);
+export const repeat = createAction(handler);

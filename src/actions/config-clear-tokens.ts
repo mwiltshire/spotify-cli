@@ -3,7 +3,7 @@ import config from '../config';
 import logger from '../utils/logger';
 import createAction from '../create-action';
 
-const configClearTokens = async () => {
+const handler = async () => {
   const answer = await inquirer.prompt([
     {
       type: 'confirm',
@@ -19,4 +19,4 @@ const configClearTokens = async () => {
   }
 };
 
-export default createAction(configClearTokens);
+export const configClearTokens = createAction(handler);

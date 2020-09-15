@@ -2,10 +2,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import createAction from '../create-action';
 import logger from '../utils/logger';
 
-const playlistAdd = async (
-  spotify: SpotifyWebApi,
-  args: [string, string, any]
-) => {
+const handler = async (spotify: SpotifyWebApi, args: [string, string, any]) => {
   const [name, uri, options] = args;
 
   const userPlaylistsResponse = await spotify.getUserPlaylists();
@@ -41,4 +38,4 @@ const playlistAdd = async (
   );
 };
 
-export default createAction(playlistAdd);
+export const playlistAdd = createAction(handler);

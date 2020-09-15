@@ -1,0 +1,12 @@
+export { default as authCommand } from './auth';
+export { default as configCommand } from './config';
+export { default as playCommand } from './play';
+export { default as pauseCommand } from './pause';
+export { default as skipCommand } from './skip';
+export { default as volumeCommand } from './volume';
+export { default as muteCommand } from './mute';
+export { default as shareCommand } from './share';
+export { default as shuffleCommand } from './shuffle';
+export { default as repeatCommand } from './repeat';
+export { default as devicesCommand } from './devices';
+export { default as playlistCommand } from './playlist';

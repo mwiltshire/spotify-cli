@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import createAction from '../create-action';
 
-const playTrack = async (spotify: SpotifyWebApi, args: [string]) => {
+const handler = async (spotify: SpotifyWebApi, args: [string]) => {
   const [query] = args;
   const res = await spotify.searchTracks(query);
   await spotify.play({
@@ -9,4 +9,4 @@ const playTrack = async (spotify: SpotifyWebApi, args: [string]) => {
   });
 };
 
-export default createAction(playTrack);
+export const playTrack = createAction(handler);

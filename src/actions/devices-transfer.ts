@@ -3,7 +3,7 @@ import inquirer from 'inquirer';
 import createAction from '../create-action';
 import logger from '../utils/logger';
 
-const devicesTransfer = async (spotify: SpotifyWebApi) => {
+const handler = async (spotify: SpotifyWebApi) => {
   const res = await spotify.getMyDevices();
   const devices = res.body.devices;
 
@@ -43,4 +43,4 @@ const devicesTransfer = async (spotify: SpotifyWebApi) => {
   logger.spotify(`Switched playback to ${newDevice.name}`);
 };
 
-export default createAction(devicesTransfer);
+export const devicesTransfer = createAction(handler);

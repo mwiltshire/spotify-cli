@@ -3,7 +3,7 @@ import clipboard from 'clipboardy';
 import logger from '../utils/logger';
 import createAction from '../create-action';
 
-const share = async (spotify: SpotifyWebApi) => {
+const handler = async (spotify: SpotifyWebApi) => {
   const {
     body: { item }
   } = await spotify.getMyCurrentPlayingTrack();
@@ -19,4 +19,4 @@ const share = async (spotify: SpotifyWebApi) => {
   );
 };
 
-export default createAction(share);
+export const share = createAction(handler);

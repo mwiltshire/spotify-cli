@@ -1,39 +1,18 @@
-import configPath from './config-path';
-import configClearTokens from './config-clear-tokens';
-import auth from './auth';
-import play from './play';
-import playArtist from './play-artist';
-import playTrack from './play-track';
-import playAlbum from './play-album';
-import pause from './pause';
-import skip from './skip';
-import volume from './volume';
-import mute from './mute';
-import share from './share';
-import shuffle from './shuffle';
-import repeat from './repeat';
-import devicesList from './devices-list';
-import devicesTransfer from './devices-transfer';
-import playlistCreate from './playlist-create';
-import playlistAdd from './playlist-add';
-
-export default {
-  configPath,
-  configClearTokens,
-  auth,
-  play,
-  playArtist,
-  playTrack,
-  playAlbum,
-  pause,
-  skip,
-  volume,
-  mute,
-  share,
-  shuffle,
-  repeat,
-  devicesList,
-  devicesTransfer,
-  playlistCreate,
-  playlistAdd
-};
+export * from './auth';
+export * from './config-path';
+export * from './config-clear-tokens';
+export * from './play';
+export * from './play-artist';
+export * from './play-track';
+export * from './play-album';
+export * from './pause';
+export * from './skip';
+export * from './volume';
+export * from './mute';
+export * from './share';
+export * from './shuffle';
+export * from './repeat';
+export * from './devices-transfer';
+export * from './devices-list';
+export * from './playlist-create';
+export * from './playlist-add';

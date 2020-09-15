@@ -4,7 +4,7 @@ import createAction from '../create-action';
 const matchNumberBetween0And100 = (number: string) =>
   /^\d+$/.test(number) && Number(number) >= 0 && Number(number) <= 100;
 
-const volume = async (spotify: SpotifyWebApi, options: any[]) => {
+const handler = async (spotify: SpotifyWebApi, options: any[]) => {
   const [percent] = options;
   if (!percent) {
     throw new Error('Volume percent is required!');
@@ -24,4 +24,4 @@ spotify volume 99
   await spotify.setVolume(Number(percent));
 };
 
-export default createAction(volume);
+export const volume = createAction(handler);

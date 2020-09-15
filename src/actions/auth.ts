@@ -5,7 +5,7 @@ import logger from '../utils/logger';
 
 const trim = (data: Buffer) => data.toString().trim();
 
-export default async (port = '8080') => {
+export const auth = async (port = '8080') => {
   process.env.REDIRECT_URI = `http://localhost:${port}/callback`;
   process.env.SCOPE = [
     'user-read-currently-playing',

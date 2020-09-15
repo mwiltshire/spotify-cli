@@ -1,5 +1,5 @@
 import Spotify from 'spotify-web-api-node';
-import playTrack from '../play-track';
+import { playTrack } from '../play-track';
 import { mockSearchTracks, mockPlay } from '../../test-mocks.ts';
 
 jest.mock('spotify-web-api-node', () => {
