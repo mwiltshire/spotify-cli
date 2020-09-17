@@ -1,6 +1,8 @@
 import { program } from 'commander';
 import {
+  auth,
   authCommand,
+  authTerminalCommand,
   configCommand,
   playCommand,
   pauseCommand,
@@ -15,7 +17,9 @@ import {
 } from './commands';
 
 (async () => {
+  program.addCommand(auth);
   program.addCommand(authCommand);
+  program.addCommand(authTerminalCommand);
   program.addCommand(configCommand);
   program.addCommand(playCommand);
   program.addCommand(pauseCommand);

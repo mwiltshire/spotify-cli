@@ -1,4 +1,5 @@
 export * from './auth';
+export * from './auth-terminal';
 export * from './config-path';
 export * from './config-clear-tokens';
 export * from './play';

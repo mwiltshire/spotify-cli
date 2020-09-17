@@ -1,4 +1,5 @@
 export { default as authCommand } from './auth';
+export { default as authTerminalCommand } from './auth-terminal';
 export { default as configCommand } from './config';
 export { default as playCommand } from './play';
 export { default as pauseCommand } from './pause';
