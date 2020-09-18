@@ -6,4 +6,4 @@ const devicesCommand = new Command('devices');
 devicesCommand.command('list').action(devicesList);
 devicesCommand.command('transfer').action(devicesTransfer);
 
-export default devicesCommand;
+export { devicesCommand };

@@ -15,4 +15,4 @@ playCommand
 
 playCommand.command('album <name>').action(playAlbum);
 
-export default playCommand;
+export { playCommand };

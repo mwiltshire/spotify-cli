@@ -6,4 +6,4 @@ const configCommand = new Command('config');
 configCommand.command('path').action(configPath);
 configCommand.command('clear-tokens').action(configClearTokens);
 
-export default configCommand;
+export { configCommand };

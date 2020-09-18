@@ -15,4 +15,4 @@ playlistCommand
   .option('-p, --position [index]')
   .action(playlistAdd);
 
-export default playlistCommand;
+export { playlistCommand };

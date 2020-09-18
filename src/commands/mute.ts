@@ -5,4 +5,4 @@ const muteCommand = new Command('mute')
   .description('Mute playback')
   .action(mute);
 
-export default muteCommand;
+export { muteCommand };
