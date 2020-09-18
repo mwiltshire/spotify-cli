@@ -11,7 +11,8 @@ import {
   shuffleCommand,
   repeatCommand,
   devicesCommand,
-  playlistCommand
+  playlistCommand,
+  recommendCommand
 } from './commands';
 
 (async () => {
@@ -27,6 +28,7 @@ import {
   program.addCommand(repeatCommand);
   program.addCommand(devicesCommand);
   program.addCommand(playlistCommand);
+  program.addCommand(recommendCommand);
 
   await program.parseAsync(process.argv);
 })();

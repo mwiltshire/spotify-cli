@@ -5,16 +5,26 @@ import logger from '../utils/logger';
 
 const trim = (data: Buffer) => data.toString().trim();
 
-export const auth = async (port = '8080') => {
+export const auth = async ({ port = '8080' }) => {
   process.env.REDIRECT_URI = `http://localhost:${port}/callback`;
   process.env.SCOPE = [
-    'user-read-currently-playing',
-    'user-modify-playback-state',
     'user-read-playback-state',
+    'user-modify-playback-state',
+    'user-read-currently-playing',
+    'streaming',
+    'user-read-email',
+    'user-read-private',
     'playlist-read-collaborative',
     'playlist-modify-public',
     'playlist-read-private',
-    'playlist-modify-private'
+    'playlist-modify-private',
+    'user-library-modify',
+    'user-library-read',
+    'user-top-read',
+    'user-read-playback-position',
+    'user-read-recently-played',
+    'user-follow-read',
+    'user-follow-modify'
   ].join(' ');
   process.env.PUBLIC_PATH = path.resolve(__dirname, '../../public');
 

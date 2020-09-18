@@ -10,3 +10,4 @@ export { default as shuffleCommand } from './shuffle';
 export { default as repeatCommand } from './repeat';
 export { default as devicesCommand } from './devices';
 export { default as playlistCommand } from './playlist';
+export * from './recommend';

@@ -16,3 +16,4 @@ export * from './devices-transfer';
 export * from './devices-list';
 export * from './playlist-create';
 export * from './playlist-add';
+export * from './recommend';

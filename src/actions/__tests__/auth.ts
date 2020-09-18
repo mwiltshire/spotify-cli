@@ -25,7 +25,7 @@ beforeEach(() => (console.log = mockConsoleLog));
 afterEach(() => (console.log = originalConsoleLog));
 
 it('forks child process to start express server', async () => {
-  await auth('8080');
+  await auth({ port: '8080' });
   expect(fork).toHaveBeenCalledTimes(1);
   expect(fork).toHaveBeenCalledWith(
     expect.stringMatching(/server$/),
@@ -38,7 +38,7 @@ it('forks child process to start express server', async () => {
 });
 
 it('sets up message, error, data and close event listeners', async () => {
-  await auth('8080');
+  await auth({ port: '8080' });
 
   expect(mockChildOn).toHaveBeenCalledTimes(3);
   expect(
