@@ -1,34 +1,21 @@
 import { program } from 'commander';
-import {
-  authCommand,
-  configCommand,
-  playCommand,
-  pauseCommand,
-  skipCommand,
-  volumeCommand,
-  muteCommand,
-  shareCommand,
-  shuffleCommand,
-  repeatCommand,
-  devicesCommand,
-  playlistCommand,
-  recommendCommand
-} from './commands';
+import * as cmd from './commands';
 
 (async () => {
-  program.addCommand(authCommand);
-  program.addCommand(configCommand);
-  program.addCommand(playCommand);
-  program.addCommand(pauseCommand);
-  program.addCommand(skipCommand);
-  program.addCommand(volumeCommand);
-  program.addCommand(muteCommand);
-  program.addCommand(shareCommand);
-  program.addCommand(shuffleCommand);
-  program.addCommand(repeatCommand);
-  program.addCommand(devicesCommand);
-  program.addCommand(playlistCommand);
-  program.addCommand(recommendCommand);
+  program.addCommand(cmd.authCommand);
+  program.addCommand(cmd.configCommand);
+  program.addCommand(cmd.playCommand);
+  program.addCommand(cmd.pauseCommand);
+  program.addCommand(cmd.skipCommand);
+  program.addCommand(cmd.volumeCommand);
+  program.addCommand(cmd.muteCommand);
+  program.addCommand(cmd.shareCommand);
+  program.addCommand(cmd.shuffleCommand);
+  program.addCommand(cmd.repeatCommand);
+  program.addCommand(cmd.devicesCommand);
+  program.addCommand(cmd.playlistCommand);
+  program.addCommand(cmd.recommendCommand);
+  program.addCommand(cmd.saveCommand);
 
   await program.parseAsync(process.argv);
 })();
