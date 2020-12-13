@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Spotify CLI",
   "main": "index.js",
+  "bin": {
+    "spotify": "./dist/cli.js"
+  },
   "scripts": {
     "format": "prettier --write \"src/**/*.{ts,js}\"",
     "lint": "eslint \"src/**/*.{ts,js}\"",
