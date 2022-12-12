@@ -42,7 +42,7 @@
     "clipboardy": "^2.3.0",
     "commander": "^5.1.0",
     "conf": "^6.2.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "inquirer": "^7.3.3",
     "open": "^7.0.3",
     "spotify-web-api-node": "^4.0.0"
